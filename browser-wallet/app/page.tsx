@@ -1,41 +1,30 @@
-'use client'
-import Image from 'next/image'
+import App from '@/app/app'
+import Providers from './providers'
+import { UserOperationBuilder, IUserOperation } from "userop"
+import { Client, Presets } from "userop"
 
-import { WagmiConfig, createConfig, mainnet, useAccount, useConnect, useDisconnect } from 'wagmi'
-import { createPublicClient, http } from 'viem'
-import { InjectedConnector } from 'wagmi/connectors/injected'
-
-const config = createConfig({
-  autoConnect: true,
-  publicClient: createPublicClient({
-    chain: mainnet,
-    transport: http()
-  }),
-})
- 
-function App() {
-  const { address, isConnected } = useAccount()
-  const { connect } = useConnect({
-    connector: new InjectedConnector(),
-  })
-  const { disconnect } = useDisconnect()
-
-  if (isConnected)
-    return (
-      <div>
-        Connected to {address}
-        <button onClick={() => disconnect()}>Disconnect</button>
-      </div>
-    )
-  return <button onClick={() => connect()}>Connect Wallet</button>
+const sendTransaction = async () => {
+  const client = await Client.init(
+    'https://rpc.ankr.com/avalanche_fuji',
+    {
+      overrideBundlerRpc: 'http://localhost:4337'
+    }
+  )
+  
+  const builder = new UserOperationBuilder().useDefaults({
+    sender: '0xDF011a8eF20f8D7272e04fc4B7F58A769fF05613', // Bundler EOA address
+  });
+  const op = await client.buildUserOperation(builder)
+  console.log(op)
+  return op
 }
 
-export default function Home() {
+export default async function Home() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <WagmiConfig config={config}>
+      <Providers>
         <App></App>
-      </WagmiConfig>
+      </Providers>
     </main>
   )
 }
