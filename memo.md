@@ -10,8 +10,8 @@ Avalanche C-chain fujiで動作
     - https://testnet.snowtrace.io/address/0xa64490c1271afd8f223dfdab039ab3cefd4cc3eb
 - transfer from simple account
     - bundlerのEOAとentrypointのcontractにfeeが取られてるのが見れた
+![image](https://github.com/uji/erc4337-playground/assets/49834542/c3939d1a-c170-4c86-8452-7e1d1351ba92)
 
-    ![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/4b8208cf-f62b-47c0-a0ee-7d8e29c5150c/Untitled.png)
 
     [](https://testnet.snowtrace.io/tx/0x9746f588f202024e40035cc387bd51b9876e2b85dc537d866bb389193721eb97)
 
